@@ -1,0 +1,35 @@
+name: NVIQ Python CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install NVIQ with test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Run regression suite
+        run: python -m pytest -q
+      - name: Validate bundled benchmark case schema
+        run: nviq validate --cases cases/v0.2/starter.json
+      - name: Run deterministic CLI scoring
+        run: nviq score --cases cases/v0.2/starter.json --observations examples/observations/starter-observations.json --output "${{ runner.temp }}/nviq-starter-score.json"
