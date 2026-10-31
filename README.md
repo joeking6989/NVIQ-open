@@ -2,6 +2,8 @@
 
 **Open-source benchmark, execution and assurance tooling for speech-cognition reliability.**
 
+**Official Noct-Tech website:** [noct-tech.com.au](https://noct-tech.com.au)  ·  **Latest NVIQ release:** [v0.2.0](https://github.com/joeking6989/NVIQ-open/releases/tag/v0.2.0)
+
 NVIQ evaluates how a voice-enabled AI system preserves, interprets, and acts on conversational evidence. Its benchmark families cover confidence and uncertainty, clarification and abstention, state/speech consistency, shared context, turn-taking, tool/action outcomes, and causal evidence integrity.
 
 **Current source distribution:** `noct-tech-nviq` v0.2.0 (Python 3.11+).
@@ -95,4 +97,4 @@ This repository publishes the local benchmark engine and related tooling. Noct-T
 
 Apache License 2.0 — [LICENSE](LICENSE).
 
-Noct-Tech — https://noct-tech.com.au
+**Developed by [Noct-Tech](https://noct-tech.com.au)**
