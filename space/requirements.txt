@@ -1,0 +1,3 @@
+# NVIQ and its bundled JSON schemas and remediation registry.
+# Hugging Face installs Gradio according to sdk_version in README.md.
+-e .

@@ -1,0 +1,46 @@
+name: Publish NVIQ Space
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nviq-huggingface-space
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Deploy tested NVIQ to Hugging Face
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out GitHub source
+        uses: actions/checkout@v4
+      - name: Set up Python for predeployment validation
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install NVIQ test dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Run NVIQ regression suite
+        run: python -m pytest -q
+      - name: Stage Space from the same source
+        run: |
+          mkdir -p .hf-space
+          cp -R src .hf-space/src
+          cp pyproject.toml .hf-space/pyproject.toml
+          cp space/README.md .hf-space/README.md
+          cp space/app.py .hf-space/app.py
+          cp space/requirements.txt .hf-space/requirements.txt
+      - name: Publish the staged application
+        uses: huggingface/hub-sync@v0.3.0
+        with:
+          github_repo_id: ${{ github.repository }}
+          huggingface_repo_id: Noct-Tech/NVIQ
+          repo_type: space
+          space_sdk: gradio
+          subdirectory: .hf-space
+          hf_token: ${{ secrets.HF_TOKEN }}
