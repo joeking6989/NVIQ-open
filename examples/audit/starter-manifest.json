@@ -1,0 +1,27 @@
+{
+  "audit_id": "nviq-starter-audit-001",
+  "customer_name": "Noct-Tech Internal",
+  "target_name": "NVIQ Starter LSR/CVF Track",
+  "target_version": "v0.2-starter",
+  "created_at": "2026-09-02T16:12:00+10:00",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/starter.json",
+  "tracks": ["lsr_cvf"],
+  "evidence_sources": [
+    {
+      "evidence_id": "starter-observations",
+      "kind": "precomputed_observations",
+      "ref": "examples/observations/starter-observations.json",
+      "notes": "Checked-in v0.2 starter observations used to prove the commercial audit path."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 90
+  },
+  "customer_context": {
+    "purpose": "Demonstrate the NVIQ Reliability Audit v0.1 workflow against the canonical starter suite."
+  },
+  "deployment_environment": "offline precomputed evaluation",
+  "notes": "Internal demonstration manifest; replace customer and target fields for paid engagements."
+}

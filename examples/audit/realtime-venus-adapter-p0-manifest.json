@@ -1,0 +1,26 @@
+{
+  "audit_id": "NVIQ-VENUS-ADAPTER-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "Realtime-Venus Adapter Contract Fixture",
+  "target_version": "0.1",
+  "created_at": "2026-09-23T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/realtime-venus-adapter-p0.json",
+  "tracks": [
+    "audio_native"
+  ],
+  "evidence_sources": [
+    {
+      "evidence_id": "VENUS-ADAPTER-FIXTURE",
+      "kind": "trace",
+      "ref": "examples/realtime-venus/adapter-contract-trace-manifest.json",
+      "notes": "Synthetic capture-contract fixture. This is not a Realtime-Venus runtime performance result."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "adapter_contract_fixture",
+  "notes": "Qualifies the Realtime-Venus evidence adapter only. Runtime checkpoint qualification remains pending compatible GPU execution."
+}

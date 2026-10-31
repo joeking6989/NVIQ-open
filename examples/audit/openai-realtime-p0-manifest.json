@@ -1,0 +1,24 @@
+{
+  "audit_id": "NVIQ-OPENAI-REALTIME-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "OpenAI Realtime Adapter Reference Trace",
+  "target_version": "0.1",
+  "created_at": "2026-09-03T00:00:00+10:00",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/executable-p0.json",
+  "tracks": ["audio_native"],
+  "evidence_sources": [
+    {
+      "evidence_id": "OPENAI-REALTIME-P0-TRACE",
+      "kind": "trace",
+      "ref": "examples/openai-realtime/p0-trace-manifest.json",
+      "notes": "Sanitised captured-event fixture used to qualify the OpenAI Realtime ingestion adapter."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "reference",
+  "notes": "Offline adapter qualification only; no live OpenAI API session is invoked by this manifest."
+}

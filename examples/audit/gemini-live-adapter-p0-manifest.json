@@ -1,0 +1,26 @@
+{
+  "audit_id": "NVIQ-GEMINI-LIVE-ADAPTER-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "Gemini Live Adapter Contract Fixture",
+  "target_version": "0.1",
+  "created_at": "2026-09-28T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/gemini-live-adapter-p0.json",
+  "tracks": [
+    "audio_native"
+  ],
+  "evidence_sources": [
+    {
+      "evidence_id": "GEMINI-LIVE-ADAPTER-FIXTURE",
+      "kind": "trace",
+      "ref": "examples/gemini-live/adapter-contract-trace-manifest.json",
+      "notes": "Synthetic capture-contract fixture. This is not a Gemini Live runtime performance result."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "adapter_contract_fixture",
+  "notes": "Qualifies the Gemini Live evidence adapter only. Authenticated provider runtime qualification remains pending real live execution."
+}

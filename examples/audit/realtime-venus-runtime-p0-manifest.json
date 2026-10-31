@@ -1,0 +1,26 @@
+{
+  "audit_id": "NVIQ-VENUS-RUNTIME-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "Realtime-Venus-Audio-9B",
+  "target_version": "e53ae8d5bde92b30364b26f2e4c13c9db7a8ffea",
+  "created_at": "2026-09-23T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/realtime-venus-adapter-p0.json",
+  "tracks": [
+    "audio_native"
+  ],
+  "evidence_sources": [
+    {
+      "evidence_id": "VENUS-RUNTIME-EVIDENCE",
+      "kind": "trace",
+      "ref": "runtime-captured-evidence.json",
+      "notes": "Must originate from RealtimeVenusRuntimeCapture with capture_origin=runtime. Adapter fixtures do not qualify."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "runtime",
+  "notes": "Canonical Realtime-Venus-Audio runtime qualification manifest pinned to the upstream checkpoint source commit."
+}

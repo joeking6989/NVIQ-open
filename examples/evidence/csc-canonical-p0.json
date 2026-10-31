@@ -1,0 +1,103 @@
+[
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-FLOOR-001",
+    "track": "lsr_cvf",
+    "floor_events": [
+      {
+        "class": "genuine_interruption",
+        "yielded_floor": true
+      },
+      {
+        "class": "backchannel",
+        "yielded_floor": false
+      },
+      {
+        "class": "other_directed_speech",
+        "yielded_floor": false
+      },
+      {
+        "class": "background_speech",
+        "yielded_floor": false
+      }
+    ],
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-FLOOR-001"
+      ]
+    }
+  },
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-SILENCE-001",
+    "track": "lsr_cvf",
+    "silence_events": [
+      {
+        "silence_ms": 12000,
+        "state_preserved": true,
+        "speaker_preserved": true
+      },
+      {
+        "silence_ms": 18000,
+        "state_preserved": true,
+        "speaker_preserved": true
+      }
+    ],
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-SILENCE-001"
+      ]
+    }
+  },
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-ASYNC-001",
+    "track": "lsr_cvf",
+    "async_tasks": [
+      {
+        "kind": "async_task",
+        "authorized_time_ms": 1000,
+        "evidence_times_at_authorization": [
+          200,
+          800
+        ],
+        "later_evidence_retroactively_added": false,
+        "prepared_time_ms": 1600,
+        "returned_time_ms": 1700,
+        "accepted_time_ms": 1750,
+        "rejected_time_ms": null,
+        "committed_time_ms": 1800,
+        "spoken_time_ms": 1900
+      }
+    ],
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-ASYNC-001"
+      ]
+    }
+  },
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-SPEAKER-001",
+    "track": "lsr_cvf",
+    "speaker_state_events": [
+      {
+        "expected_speaker_id": "speaker-A",
+        "speaker_id": "speaker-A",
+        "overlap_owner_correct": true,
+        "speaker_switch_correct": true
+      },
+      {
+        "expected_speaker_id": "speaker-B",
+        "speaker_id": "speaker-B",
+        "overlap_owner_correct": true,
+        "speaker_switch_correct": true
+      }
+    ],
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-SPEAKER-001"
+      ]
+    }
+  }
+]
