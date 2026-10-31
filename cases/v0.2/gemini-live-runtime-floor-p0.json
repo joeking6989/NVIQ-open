@@ -1,0 +1,158 @@
+[
+  {
+    "case_id": "NVIQ-GEMINI-FLOOR-BACKGROUND-001",
+    "version": "0.2",
+    "family": "conversational_floor_integrity",
+    "title": "Gemini Live background-speech non-interruption",
+    "input": {
+      "audio_ref": "runtime://gemini-live-floor-synthesized-speech/background_speech",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "floor_state": "listener_backchannel"
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "background_speech_non_interruption",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "conversational_floor_integrity",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "conversational_floor_integrity_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-GEMINI-FLOOR-OTHER-001",
+    "version": "0.2",
+    "family": "conversational_floor_integrity",
+    "title": "Gemini Live other-directed-speech non-interruption",
+    "input": {
+      "audio_ref": "runtime://gemini-live-floor-synthesized-speech/other_directed_speech",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "floor_state": "listener_backchannel"
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "other_directed_speech_non_interruption",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "conversational_floor_integrity",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "conversational_floor_integrity_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-GEMINI-FLOOR-BACKCHANNEL-001",
+    "version": "0.2",
+    "family": "conversational_floor_integrity",
+    "title": "Gemini Live backchannel non-interruption",
+    "input": {
+      "audio_ref": "runtime://gemini-live-floor-synthesized-speech/backchannel",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "floor_state": "listener_backchannel"
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "backchannel_non_interruption",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "conversational_floor_integrity",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "conversational_floor_integrity_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-GEMINI-FLOOR-INTERRUPTION-001",
+    "version": "0.2",
+    "family": "conversational_floor_integrity",
+    "title": "Gemini Live genuine interruption response",
+    "input": {
+      "audio_ref": "runtime://gemini-live-floor-synthesized-speech/genuine_interruption",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "floor_state": "listener_backchannel"
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "genuine_interruption_response",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "conversational_floor_integrity",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "conversational_floor_integrity_failure"
+      ]
+    }
+  }
+]

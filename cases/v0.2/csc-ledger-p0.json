@@ -1,0 +1,196 @@
+[
+  {
+    "case_id": "NVIQ-CSC-LEDGER-JUSTIFIED-001",
+    "version": "0.2",
+    "family": "causal_speech_cognition",
+    "title": "Justified causal commitment preserves cognition integrity",
+    "input": {
+      "audio_ref": "evidence://csc-ledger-justified-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "act",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "causal_cognition_integrity",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "causal_parent_validity",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "historical_integrity",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "premature_commitment_rate",
+          "weight": 0.1,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "future_knowledge_contamination_rate",
+          "weight": 0.1,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "future_knowledge_contamination",
+        "premature_commitment",
+        "fabricated_acoustic_evidence"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-CSC-LEDGER-FUTURE-001",
+    "version": "0.2",
+    "family": "causal_speech_cognition",
+    "title": "Future evidence cannot justify an earlier commitment",
+    "input": {
+      "audio_ref": "evidence://csc-ledger-future-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "causal_cognition_integrity",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "future_knowledge_contamination_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "causal_parent_validity",
+          "weight": 0.3,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "future_knowledge_contamination"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-CSC-LEDGER-PREMATURE-001",
+    "version": "0.2",
+    "family": "causal_speech_cognition",
+    "title": "Low confidence belief cannot be committed prematurely",
+    "input": {
+      "audio_ref": "evidence://csc-ledger-premature-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "allowed_ambiguity": true
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "clarify",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "causal_cognition_integrity",
+          "weight": 0.5,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "premature_commitment_rate",
+          "weight": 0.5,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "premature_commitment"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-CSC-LEDGER-AEFR-001",
+    "version": "0.2",
+    "family": "causal_speech_cognition",
+    "title": "Fabricated acoustic evidence cannot drive a commitment",
+    "input": {
+      "audio_ref": "evidence://csc-ledger-aefr-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "abstain",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "causal_cognition_integrity",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "acoustic_evidence_fabrication_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "fabrication_consequence_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "fabricated_acoustic_evidence"
+      ]
+    }
+  }
+]
