@@ -1,0 +1,5 @@
+[
+  {"case_id":"NVIQ-SPEAKER-CONTINUITY-001","events":[{"speaker_id":"A","expected_speaker_id":"A","overlap_owner_correct":true},{"speaker_id":"A","expected_speaker_id":"A"},{"speaker_id":"B","expected_speaker_id":"B","speaker_switch_correct":true}]},
+  {"case_id":"NVIQ-SPEAKER-MISATTRIBUTION-001","events":[{"speaker_id":"A","expected_speaker_id":"A"},{"speaker_id":"A","expected_speaker_id":"B","speaker_switch_correct":false}]},
+  {"case_id":"NVIQ-SPEAKER-OVERLAP-001","events":[{"speaker_id":"A","expected_speaker_id":"A","overlap_owner_correct":false},{"speaker_id":"B","expected_speaker_id":"B","overlap_owner_correct":true}]}
+]

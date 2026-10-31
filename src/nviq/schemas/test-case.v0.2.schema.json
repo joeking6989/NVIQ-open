@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noct-tech.example/spec/nviq/v0.2/test-case.schema.json",
+  "title": "NVIQ Test Case v0.2",
+  "description": "Machine-readable test case contract for the Noct-Tech NVIQ speech cognition benchmark.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "version", "family", "title", "input", "ground_truth", "context", "expected_policy", "scoring"],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^NVIQ-[A-Z0-9_-]+$"},
+    "version": {"const": "0.2"},
+    "family": {"type": "string", "enum": ["fidelity_utility_split", "information_loss_reconstructability", "perception_representation_integration_decision_action", "state_speech_consistency", "uncertainty_fidelity", "cross_view_information_integrity", "code_switch_continuity", "shared_state_integrity", "longitudinal_paralinguistic_memory_integrity", "cognitive_utilization_integrity", "cross_turn_acoustic_continuity", "interpersonal_stance_fidelity", "abstention_fidelity", "turn_state_floor_state_cognition", "transcript_independent_cognition", "evaluator_confidence", "prior_contamination_resistance", "temporal_grounding", "confidence_channel_fidelity", "context_transformation_integrity", "conversational_floor_integrity", "long_silence_continuity", "asynchronous_cognitive_continuity_integrity", "speaker_state_preservation", "causal_speech_cognition"]},
+    "secondary_families": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "default": []},
+    "title": {"type": "string", "minLength": 4},
+    "risk_tier": {"type": "string", "enum": ["low", "moderate", "high", "consequential"], "default": "low"},
+    "language_tags": {"type": "array", "items": {"type": "string"}, "default": ["en-AU"]},
+    "input": {
+      "type": "object", "additionalProperties": false, "required": ["audio_ref"],
+      "properties": {
+        "audio_ref": {"type": "string"},
+        "audio_start_ms": {"type": "integer", "minimum": 0, "default": 0},
+        "audio_end_ms": {"type": ["integer", "null"], "minimum": 0},
+        "transcript_hint": {"type": ["string", "null"]},
+        "noise_condition": {"type": ["string", "null"]},
+        "speaker_count": {"type": "integer", "minimum": 0, "default": 1},
+        "synthetic_audio": {"type": "boolean", "default": false}
+      }
+    },
+    "ground_truth": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "verbatim": {"type": ["string", "null"]},
+        "semantic_candidates": {"type": "array", "items": {"type": "object", "required": ["label", "probability"], "properties": {"label": {"type": "string"}, "probability": {"type": "number", "minimum": 0, "maximum": 1}}, "additionalProperties": false}, "default": []},
+        "entity_candidates": {"type": "array", "items": {"type": "object", "required": ["surface", "resolved", "confidence"], "properties": {"surface": {"type": "string"}, "resolved": {"type": ["string", "null"]}, "confidence": {"type": "number", "minimum": 0, "maximum": 1}}, "additionalProperties": false}, "default": []},
+        "prosodic_observations": {"type": "object", "additionalProperties": true, "default": {}},
+        "paralinguistic_hypotheses": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}, "default": {}},
+        "language_distribution": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}, "default": {}},
+        "floor_state": {"type": ["string", "null"], "enum": [null, "holds_floor", "yielding_floor", "transition_point", "listener_backchannel", "cooperative_interruption", "competitive_interruption", "uncertain_floor_claim", "non_speech_event"]},
+        "message_presence_probability": {"type": "number", "minimum": 0, "maximum": 1, "default": 1},
+        "allowed_ambiguity": {"type": "boolean", "default": false},
+        "annotator_disagreement": {"type": "object", "additionalProperties": true, "default": {}}
+      }
+    },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "project_state": {"type": "object", "additionalProperties": true, "default": {}},
+        "screen_state": {"type": "object", "additionalProperties": true, "default": {}},
+        "vocabulary": {"type": "array", "items": {"type": "string"}, "default": []},
+        "agent_history": {"type": "array", "items": {"type": "object", "additionalProperties": true}, "default": []},
+        "epistemic_memory": {"type": "array", "items": {"type": "object", "additionalProperties": true}, "default": []},
+        "human_state_memory": {"type": "array", "items": {"type": "object", "additionalProperties": true}, "default": []},
+        "injected_prior": {"type": "object", "additionalProperties": true, "default": {}},
+        "shared_state": {"type": "object", "additionalProperties": false, "properties": {"generated": {"type": "array", "items": {"type": "string"}, "default": []}, "transmitted": {"type": "array", "items": {"type": "string"}, "default": []}, "playback_grounded": {"type": "array", "items": {"type": "string"}, "default": []}, "revoked_unheard": {"type": "array", "items": {"type": "string"}, "default": []}}, "default": {}},
+        "context_transformations": {"type": "array", "items": {"type": "object", "required": ["operation", "source_refs", "recoverable"], "properties": {"operation": {"type": "string", "enum": ["summarize", "compress", "offload", "promote", "retrieve", "supersede"]}, "source_refs": {"type": "array", "items": {"type": "string"}, "minItems": 1}, "output_ref": {"type": ["string", "null"]}, "recoverable": {"type": "boolean"}, "provenance_ref": {"type": ["string", "null"]}}, "additionalProperties": false}, "default": []}
+      }
+    },
+    "expected_policy": {
+      "type": "object", "additionalProperties": false, "required": ["action_mode"],
+      "properties": {
+        "action_mode": {"type": "string", "enum": ["act", "clarify", "defer", "abstain", "observe_only"]},
+        "expected_action": {"type": ["string", "null"]},
+        "max_expressed_confidence": {"type": "number", "minimum": 0, "maximum": 1, "default": 1},
+        "must_not_use_unheard_context": {"type": "boolean", "default": true},
+        "must_preserve_alternatives": {"type": "boolean", "default": false},
+        "must_preserve_provenance": {"type": "boolean", "default": true}
+      }
+    },
+    "scoring": {
+      "type": "object", "additionalProperties": false, "required": ["metrics"],
+      "properties": {
+        "metrics": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["name", "weight"], "properties": {"name": {"type": "string"}, "weight": {"type": "number", "exclusiveMinimum": 0}, "higher_is_better": {"type": "boolean", "default": true}, "hard_gate": {"type": "boolean", "default": false}, "threshold": {"type": ["number", "null"]}}, "additionalProperties": false}},
+        "catastrophic_failure_conditions": {"type": "array", "items": {"type": "string"}, "default": []}
+      }
+    },
+    "provenance": {"type": "object", "additionalProperties": false, "properties": {"source_dataset": {"type": ["string", "null"]}, "license": {"type": ["string", "null"]}, "created_by": {"type": ["string", "null"]}, "reviewed_by": {"type": "array", "items": {"type": "string"}, "default": []}, "notes": {"type": ["string", "null"]}}, "default": {}}
+  }
+}

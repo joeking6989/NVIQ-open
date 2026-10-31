@@ -1,0 +1,30 @@
+[
+  {
+    "case_id":"NVIQ-CSC-SELF-REPAIR-001",
+    "ledger":{"ledger_version":"0.1","case_id":"NVIQ-CSC-SELF-REPAIR-001","events":[
+      {"event_id":"fifty","kind":"hypothesis","event_time_ms":510,"evidence_available_time_ms":420,"confidence":0.91,"provenance_refs":["audio:fifty"]},
+      {"event_id":"confidence","kind":"confidence","event_time_ms":540,"evidence_available_time_ms":420,"confidence_time_ms":540,"confidence":0.91,"parent_event_ids":["fifty"],"provenance_refs":["audio:fifty"]},
+      {"event_id":"commit50","kind":"commitment","event_time_ms":1020,"evidence_available_time_ms":420,"commitment_time_ms":1020,"parent_event_ids":["confidence"],"provenance_refs":["trace:commit50"]},
+      {"event_id":"repair15","kind":"revision","event_time_ms":1260,"evidence_available_time_ms":1170,"revision_time_ms":1260,"supersedes_event_ids":["commit50"],"provenance_refs":["audio:fifteen"]}
+    ]},
+    "expected":{"required_failures":["premature_commitment"],"failure_locus":"commitment_routing"}
+  },
+  {
+    "case_id":"NVIQ-CSC-FUTURE-CONTAMINATION-001",
+    "ledger":{"ledger_version":"0.1","case_id":"NVIQ-CSC-FUTURE-CONTAMINATION-001","events":[
+      {"event_id":"future","kind":"acoustic_evidence","event_time_ms":1200,"evidence_available_time_ms":1200,"provenance_refs":["audio:future"]},
+      {"event_id":"decision","kind":"commitment","event_time_ms":1000,"evidence_available_time_ms":900,"commitment_time_ms":1000,"parent_event_ids":["future"],"provenance_refs":["trace:decision"]}
+    ]},
+    "expected":{"required_failures":["future_knowledge_contamination"],"failure_locus":"context/prior_contamination"}
+  },
+  {
+    "case_id":"NVIQ-CSC-JUSTIFIED-001",
+    "ledger":{"ledger_version":"0.1","case_id":"NVIQ-CSC-JUSTIFIED-001","events":[
+      {"event_id":"evidence","kind":"acoustic_evidence","event_time_ms":400,"evidence_available_time_ms":400,"provenance_refs":["audio:command"]},
+      {"event_id":"confidence","kind":"confidence","event_time_ms":700,"evidence_available_time_ms":400,"confidence_time_ms":700,"confidence":0.96,"parent_event_ids":["evidence"],"provenance_refs":["trace:confidence"]},
+      {"event_id":"commit","kind":"commitment","event_time_ms":850,"evidence_available_time_ms":400,"commitment_time_ms":850,"parent_event_ids":["confidence"],"provenance_refs":["trace:commit"]},
+      {"event_id":"action","kind":"tool_action","event_time_ms":900,"evidence_available_time_ms":400,"action_authorized_time_ms":900,"parent_event_ids":["commit"],"provenance_refs":["tool:action"]}
+    ]},
+    "expected":{"forbidden_failures":["future_knowledge_contamination","premature_commitment"]}
+  }
+]

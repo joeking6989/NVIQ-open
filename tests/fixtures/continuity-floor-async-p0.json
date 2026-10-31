@@ -1,0 +1,6 @@
+{
+ "long_silence":[{"silence_ms":12000,"state_preserved":true,"speaker_preserved":true},{"silence_ms":18000,"state_preserved":true,"speaker_preserved":false}],
+ "floor":[{"class":"genuine_interruption","yielded_floor":true},{"class":"backchannel","yielded_floor":false},{"class":"other_directed_speech","yielded_floor":false},{"class":"background_speech","yielded_floor":false}],
+ "async_clean":[{"kind":"async_task","authorized_time_ms":1000,"evidence_times_at_authorization":[200,800],"later_evidence_retroactively_added":false,"prepared_time_ms":1600,"returned_time_ms":1700,"accepted_time_ms":1750,"committed_time_ms":1800,"spoken_time_ms":1900}],
+ "async_contaminated":[{"kind":"async_task","authorized_time_ms":1000,"evidence_times_at_authorization":[200,1400],"later_evidence_retroactively_added":true,"prepared_time_ms":1600,"returned_time_ms":1700,"accepted_time_ms":1750,"committed_time_ms":1800,"spoken_time_ms":1900}]
+}

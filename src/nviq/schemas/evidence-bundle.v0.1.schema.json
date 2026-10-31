@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noct-tech.example/spec/nviq/v0.1/evidence-bundle.schema.json",
+  "title": "NVIQ Evidence Record v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence_version", "case_id", "track", "provenance"],
+  "properties": {
+    "evidence_version": {"const": "0.1"},
+    "case_id": {"type": "string", "pattern": "^NVIQ-[A-Z0-9_-]+$"},
+    "track": {"type": "string", "enum": ["transcript_only", "transcript_metadata", "audio_native", "lsr_cvf", "oracle"]},
+    "message": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "presence_probability": {"type": "number", "minimum": 0, "maximum": 1},
+        "lexical_output": {"type": ["string", "null"]},
+        "abstained": {"type": "boolean"},
+        "correct": {"type": ["boolean", "null"]}
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authoritative": {"type": "number", "minimum": 0, "maximum": 1},
+        "expressed": {"type": "number", "minimum": 0, "maximum": 1},
+        "action_mode": {"type": "string", "enum": ["act", "clarify", "defer", "abstain", "observe_only"]}
+      }
+    },
+    "alternatives": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preserved": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requested": {"type": "boolean"},
+        "execution_status": {"type": "string", "enum": ["success", "failed", "rejected", "partial", "not_attempted", "unknown"]},
+        "spoken_claim": {"type": "string", "enum": ["success", "failure", "uncertain", "none"]}
+      }
+    },
+    "shared_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "used_context_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "playback_grounded_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "generated_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "prior": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "current_prior_blind": {"$ref": "#/$defs/distribution"},
+        "contextual_resolved": {"$ref": "#/$defs/distribution"},
+        "historical_prior": {"$ref": "#/$defs/distribution"},
+        "promoted_as_current_observation": {"type": "boolean"}
+      }
+    },
+    "context_retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decisive_evidence_required": {"type": "boolean"},
+        "decisive_evidence_recovered": {"type": "boolean"},
+        "provenance_preserved": {"type": "boolean"},
+        "latency_ms": {"type": "number", "minimum": 0},
+        "stale_summary_used": {"type": "boolean"},
+        "requested_ref": {"type": ["string", "null"]},
+        "recovered_ref": {"type": ["string", "null"]},
+        "provenance_ref": {"type": ["string", "null"]}
+      }
+    },
+    "turn": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "predicted_floor_state": {"type": ["string", "null"], "enum": [null, "holds_floor", "yielding_floor", "transition_point", "listener_backchannel", "cooperative_interruption", "competitive_interruption", "uncertain_floor_claim", "non_speech_event"]}
+      }
+    },
+    "floor_events": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["class", "yielded_floor"], "properties": {
+        "class": {"type": "string", "enum": ["genuine_interruption", "backchannel", "other_directed_speech", "background_speech"]},
+        "yielded_floor": {"type": "boolean"}
+      }}
+    },
+    "silence_events": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["silence_ms", "state_preserved", "speaker_preserved"], "properties": {
+        "silence_ms": {"type": "number", "minimum": 0},
+        "state_preserved": {"type": "boolean"},
+        "speaker_preserved": {"type": "boolean"}
+      }}
+    },
+    "async_tasks": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["kind", "authorized_time_ms", "evidence_times_at_authorization", "later_evidence_retroactively_added"], "properties": {
+        "kind": {"const": "async_task"},
+        "authorized_time_ms": {"type": "number", "minimum": 0},
+        "evidence_times_at_authorization": {"type": "array", "items": {"type": "number", "minimum": 0}},
+        "later_evidence_retroactively_added": {"type": "boolean"},
+        "prepared_time_ms": {"type": ["number", "null"], "minimum": 0},
+        "returned_time_ms": {"type": ["number", "null"], "minimum": 0},
+        "accepted_time_ms": {"type": ["number", "null"], "minimum": 0},
+        "rejected_time_ms": {"type": ["number", "null"], "minimum": 0},
+        "committed_time_ms": {"type": ["number", "null"], "minimum": 0},
+        "spoken_time_ms": {"type": ["number", "null"], "minimum": 0}
+      }}
+    },
+    "speaker_state_events": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "object", "additionalProperties": false, "required": ["expected_speaker_id", "speaker_id"], "properties": {
+        "expected_speaker_id": {"type": ["string", "null"]},
+        "speaker_id": {"type": ["string", "null"]},
+        "overlap_owner_correct": {"type": "boolean"},
+        "speaker_switch_correct": {"type": "boolean"}
+      }}
+    },
+    "ledger": {"type": "object"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["evidence_refs"],
+      "properties": {
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "session_id": {"type": ["string", "null"]},
+        "audio_ref": {"type": ["string", "null"]},
+        "provider": {"type": ["string", "null"]},
+        "model": {"type": ["string", "null"]},
+        "configuration": {"type": "object", "additionalProperties": true}
+      }
+    }
+  },
+  "$defs": {
+    "distribution": {
+      "type": "object",
+      "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  }
+}
