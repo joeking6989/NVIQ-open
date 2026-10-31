@@ -1,0 +1,213 @@
+{
+  "trace_version": "0.1",
+  "capture_origin": "adapter_contract_fixture",
+  "default_track": "audio_native",
+  "sessions": [
+    {
+      "case_id": "NVIQ-CONF-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-conf-001",
+      "audio_ref": "fixture://openai-realtime/conf-001.wav",
+      "events": [
+        {
+          "type": "conversation.item.input_audio_transcription.completed",
+          "event_id": "ev-conf-transcript",
+          "item_id": "user-conf-001",
+          "transcript": "Axiom or Argus",
+          "logprobs": [
+            {"token": "Axiom", "logprob": -0.6539264674, "bytes": []},
+            {"token": " or Argus", "logprob": -0.7339691751, "bytes": []}
+          ]
+        },
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-conf-state",
+          "evidence": {
+            "confidence": {"authoritative": 0.52, "expressed": 0.52, "action_mode": "clarify"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-UNC-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-unc-001",
+      "audio_ref": "fixture://openai-realtime/unc-001.wav",
+      "events": [
+        {
+          "type": "conversation.item.input_audio_transcription.completed",
+          "event_id": "ev-unc-transcript",
+          "item_id": "user-unc-001",
+          "transcript": "Miller or Millar",
+          "logprobs": [
+            {"token": "Miller", "logprob": -0.5978370008, "bytes": []},
+            {"token": " or Millar", "logprob": -0.7985076962, "bytes": []}
+          ]
+        },
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-unc-state",
+          "evidence": {
+            "confidence": {"authoritative": 0.55, "expressed": 0.55, "action_mode": "clarify"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-ABSTAIN-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-abstain-001",
+      "audio_ref": "fixture://openai-realtime/abstain-001.wav",
+      "events": [
+        {"type": "input_audio_buffer.speech_started", "event_id": "ev-abstain-start", "item_id": "user-abstain-001", "audio_start_ms": 100},
+        {"type": "input_audio_buffer.speech_stopped", "event_id": "ev-abstain-stop", "item_id": "user-abstain-001", "audio_end_ms": 260},
+        {
+          "type": "conversation.item.input_audio_transcription.completed",
+          "event_id": "ev-abstain-transcript",
+          "item_id": "user-abstain-001",
+          "transcript": "",
+          "logprobs": []
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-STATE-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-state-001",
+      "audio_ref": "fixture://openai-realtime/state-001.wav",
+      "events": [
+        {
+          "type": "response.function_call_arguments.done",
+          "event_id": "ev-state-call",
+          "item_id": "fc-state-001",
+          "call_id": "call-state-001",
+          "name": "send_message",
+          "arguments": "{\"to\":\"Miller\"}"
+        },
+        {
+          "type": "conversation.item.created",
+          "event_id": "ev-state-output",
+          "item": {
+            "id": "tool-state-001",
+            "type": "function_call_output",
+            "call_id": "call-state-001",
+            "output": "{\"status\":\"failed\"}"
+          }
+        },
+        {
+          "type": "response.output_audio_transcript.done",
+          "event_id": "ev-state-spoken",
+          "item_id": "assistant-state-001",
+          "response_id": "response-state-001",
+          "transcript": "I could not send that message."
+        },
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-state-state",
+          "evidence": {
+            "action": {"requested": true, "execution_status": "failed", "spoken_claim": "failure"}
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-SHARED-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-shared-001",
+      "audio_ref": "fixture://openai-realtime/shared-001.wav",
+      "events": [
+        {
+          "type": "response.output_audio_transcript.done",
+          "event_id": "ev-shared-output",
+          "item_id": "msg-1",
+          "response_id": "response-shared-001",
+          "transcript": "The deployment is still running."
+        },
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-shared-state",
+          "evidence": {
+            "shared_state": {
+              "used_context_ids": ["msg-1"],
+              "playback_grounded_ids": ["msg-1"],
+              "generated_ids": ["msg-1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-PRIOR-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-prior-001",
+      "audio_ref": "fixture://openai-realtime/prior-001.wav",
+      "events": [
+        {
+          "type": "conversation.item.input_audio_transcription.completed",
+          "event_id": "ev-prior-transcript",
+          "item_id": "user-prior-001",
+          "transcript": "That is fine.",
+          "logprobs": [{"token": "That is fine.", "logprob": -0.0833816089, "bytes": []}]
+        },
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-prior-state",
+          "evidence": {
+            "prior": {
+              "current_prior_blind": {"neutral": 0.9, "angry": 0.1},
+              "contextual_resolved": {"neutral": 0.88, "angry": 0.12},
+              "historical_prior": {"angry": 0.95},
+              "promoted_as_current_observation": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-TURN-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-turn-001",
+      "audio_ref": "fixture://openai-realtime/turn-001.wav",
+      "events": [
+        {"type": "input_audio_buffer.speech_started", "event_id": "ev-turn-start", "item_id": "user-turn-001", "audio_start_ms": 100},
+        {"type": "input_audio_buffer.speech_stopped", "event_id": "ev-turn-stop", "item_id": "user-turn-001", "audio_end_ms": 310},
+        {
+          "type": "conversation.item.input_audio_transcription.completed",
+          "event_id": "ev-turn-transcript",
+          "item_id": "user-turn-001",
+          "transcript": "mm-hm",
+          "logprobs": [{"token": "mm-hm", "logprob": -0.1053605157, "bytes": []}]
+        },
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-turn-state",
+          "evidence": {"turn": {"predicted_floor_state": "listener_backchannel"}}
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-CTX-001",
+      "model": "gpt-realtime-2.1",
+      "session_id": "sess-ctx-001",
+      "audio_ref": "fixture://openai-realtime/ctx-001.wav",
+      "events": [
+        {
+          "type": "nviq.evidence",
+          "event_id": "nviq-ctx-state",
+          "evidence": {
+            "context_retrieval": {
+              "decisive_evidence_required": true,
+              "decisive_evidence_recovered": true,
+              "provenance_preserved": true,
+              "latency_ms": 180,
+              "stale_summary_used": false,
+              "requested_ref": "mem-17",
+              "recovered_ref": "mem-17",
+              "provenance_ref": "prov-17"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

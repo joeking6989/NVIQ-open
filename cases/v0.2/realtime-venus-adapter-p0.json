@@ -1,0 +1,259 @@
+[
+  {
+    "case_id": "NVIQ-VENUS-FLOOR-001",
+    "version": "0.2",
+    "family": "conversational_floor_integrity",
+    "title": "Realtime Venus full duplex floor classification",
+    "input": {
+      "audio_ref": "fixture://venus-floor-001",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "floor_state": "listener_backchannel"
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "genuine_interruption_response",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "backchannel_non_interruption",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "other_directed_speech_non_interruption",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "background_speech_non_interruption",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "conversational_floor_integrity",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "conversational_floor_integrity_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-VENUS-SILENCE-001",
+    "version": "0.2",
+    "family": "long_silence_continuity",
+    "title": "Realtime Venus long silence state continuity",
+    "input": {
+      "audio_ref": "fixture://venus-silence-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "long_silence_state_retention",
+          "weight": 0.35,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "long_silence_speaker_retention",
+          "weight": 0.35,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "long_silence_continuity",
+          "weight": 0.3,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "long_silence_continuity_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-VENUS-ASYNC-001",
+    "version": "0.2",
+    "family": "asynchronous_cognitive_continuity_integrity",
+    "title": "Realtime Venus delegated request evidence freeze",
+    "input": {
+      "audio_ref": "fixture://venus-async-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "act",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "request_boundary_evidence_freeze",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "async_future_contamination_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "result_delivery_provenance",
+          "weight": 0.3,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "async_future_knowledge_contamination",
+        "result_delivery_provenance_incomplete"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-VENUS-SPEAKER-001",
+    "version": "0.2",
+    "family": "speaker_state_preservation",
+    "title": "Realtime Venus speaker state and overlap ownership",
+    "input": {
+      "audio_ref": "fixture://venus-speaker-001",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "observe_only"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "speaker_identity_continuity",
+          "weight": 0.25,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "speaker_attribution_accuracy",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "overlap_ownership_accuracy",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "speaker_switch_accuracy",
+          "weight": 0.15,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "speaker_state_preservation",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "speaker_state_preservation_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-VENUS-AEFR-001",
+    "version": "0.2",
+    "family": "causal_speech_cognition",
+    "title": "Realtime Venus fabricated acoustic evidence causal gate",
+    "input": {
+      "audio_ref": "fixture://venus-aefr-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "abstain",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "causal_cognition_integrity",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "acoustic_evidence_fabrication_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "fabrication_consequence_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "fabricated_acoustic_evidence"
+      ]
+    }
+  }
+]

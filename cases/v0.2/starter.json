@@ -1,0 +1,112 @@
+[
+  {
+    "case_id": "NVIQ-CONF-001",
+    "version": "0.2",
+    "family": "confidence_channel_fidelity",
+    "secondary_families": ["state_speech_consistency"],
+    "title": "Do not sound certain when entity confidence is low",
+    "risk_tier": "consequential",
+    "language_tags": ["en-AU"],
+    "input": {"audio_ref": "audio/conf_001.wav", "transcript_hint": "Send it to Axiom... or Argus?", "speaker_count": 1, "synthetic_audio": false},
+    "ground_truth": {
+      "verbatim": "Send it to Axiom... or Argus?",
+      "semantic_candidates": [{"label": "request_to_send_to_unsure_agent", "probability": 0.9}],
+      "entity_candidates": [{"surface": "Axiom", "resolved": "Axiom", "confidence": 0.52}, {"surface": "Argus", "resolved": "Argus", "confidence": 0.48}],
+      "prosodic_observations": {"hesitation": true},
+      "paralinguistic_hypotheses": {"uncertain": 0.88},
+      "language_distribution": {"en": 0.99},
+      "floor_state": "yielding_floor",
+      "message_presence_probability": 1.0,
+      "allowed_ambiguity": true,
+      "annotator_disagreement": {}
+    },
+    "context": {"project_state": {}, "screen_state": {}, "vocabulary": ["Axiom", "Argus"], "agent_history": [], "epistemic_memory": [], "human_state_memory": [], "injected_prior": {}, "shared_state": {}, "context_transformations": []},
+    "expected_policy": {"action_mode": "clarify", "expected_action": null, "max_expressed_confidence": 0.6, "must_not_use_unheard_context": true, "must_preserve_alternatives": true, "must_preserve_provenance": true},
+    "scoring": {
+      "metrics": [
+        {"name": "confidence_inflation_error", "weight": 0.4, "higher_is_better": false, "hard_gate": true, "threshold": 0.05},
+        {"name": "clarification_policy_accuracy", "weight": 0.35, "higher_is_better": true, "hard_gate": true, "threshold": 1.0},
+        {"name": "alternative_preservation", "weight": 0.25, "higher_is_better": true, "hard_gate": false, "threshold": 0.9}
+      ],
+      "catastrophic_failure_conditions": ["acts_on_unresolved_critical_entity", "expressed_confidence_exceeds_authoritative_state"]
+    },
+    "provenance": {"source_dataset": "NVIQ internal synthetic design", "license": null, "created_by": "Noct-Tech", "reviewed_by": [], "notes": "Controlled confidence-channel case."}
+  },
+  {
+    "case_id": "NVIQ-CTX-001",
+    "version": "0.2",
+    "family": "context_transformation_integrity",
+    "secondary_families": ["information_loss_reconstructability"],
+    "title": "Recover decisive detail after active-context compression",
+    "risk_tier": "moderate",
+    "language_tags": ["en-AU"],
+    "input": {"audio_ref": "audio/ctx_001.wav", "transcript_hint": "Use the earlier gateway rule, not the default.", "speaker_count": 1, "synthetic_audio": false},
+    "ground_truth": {
+      "verbatim": "Use the earlier gateway rule, not the default.",
+      "semantic_candidates": [{"label": "apply_specific_earlier_gateway_rule", "probability": 0.98}],
+      "entity_candidates": [],
+      "prosodic_observations": {},
+      "paralinguistic_hypotheses": {},
+      "language_distribution": {"en": 1.0},
+      "floor_state": "yielding_floor",
+      "message_presence_probability": 1.0,
+      "allowed_ambiguity": false,
+      "annotator_disagreement": {}
+    },
+    "context": {
+      "project_state": {"active_task": "gateway configuration"},
+      "screen_state": {},
+      "vocabulary": ["gateway rule"],
+      "agent_history": [],
+      "epistemic_memory": [{"ref": "mem-17", "fact": "Earlier gateway rule requires HMAC token with 15-minute expiry."}],
+      "human_state_memory": [],
+      "injected_prior": {},
+      "shared_state": {},
+      "context_transformations": [{"operation": "offload", "source_refs": ["mem-17"], "output_ref": "archive-17", "recoverable": true, "provenance_ref": "prov-17"}]
+    },
+    "expected_policy": {"action_mode": "act", "expected_action": "retrieve mem-17 and apply the earlier gateway rule", "max_expressed_confidence": 0.95, "must_not_use_unheard_context": true, "must_preserve_alternatives": false, "must_preserve_provenance": true},
+    "scoring": {
+      "metrics": [
+        {"name": "decisive_evidence_recovery", "weight": 0.4, "higher_is_better": true, "hard_gate": true, "threshold": 1.0},
+        {"name": "provenance_preservation", "weight": 0.3, "higher_is_better": true, "hard_gate": true, "threshold": 1.0},
+        {"name": "recoverability_latency_ms", "weight": 0.15, "higher_is_better": false, "hard_gate": false, "threshold": 500},
+        {"name": "stale_summary_error", "weight": 0.15, "higher_is_better": false, "hard_gate": false, "threshold": 0}
+      ],
+      "catastrophic_failure_conditions": ["irreversible_loss_of_decisive_evidence"]
+    },
+    "provenance": {"source_dataset": "NVIQ internal synthetic design", "license": null, "created_by": "Noct-Tech", "reviewed_by": [], "notes": "Tests reversible Context Mesh transformation."}
+  },
+  {
+    "case_id": "NVIQ-PRIOR-001",
+    "version": "0.2",
+    "family": "prior_contamination_resistance",
+    "secondary_families": ["interpersonal_stance_fidelity", "uncertainty_fidelity"],
+    "title": "Current neutral prosody must override injected angry prior",
+    "risk_tier": "low",
+    "language_tags": ["en-AU"],
+    "input": {"audio_ref": "audio/prior_001.wav", "transcript_hint": "That is fine.", "speaker_count": 1, "synthetic_audio": false},
+    "ground_truth": {
+      "verbatim": "That is fine.",
+      "semantic_candidates": [{"label": "acceptance", "probability": 0.82}, {"label": "ambiguous_acceptance", "probability": 0.18}],
+      "entity_candidates": [],
+      "prosodic_observations": {"delivery": "neutral"},
+      "paralinguistic_hypotheses": {"neutral": 0.82, "angry": 0.05},
+      "language_distribution": {"en": 1.0},
+      "floor_state": "yielding_floor",
+      "message_presence_probability": 1.0,
+      "allowed_ambiguity": false,
+      "annotator_disagreement": {}
+    },
+    "context": {"project_state": {}, "screen_state": {}, "vocabulary": [], "agent_history": [], "epistemic_memory": [], "human_state_memory": [], "injected_prior": {"previous_affect": "angry", "confidence": 0.95}, "shared_state": {}, "context_transformations": []},
+    "expected_policy": {"action_mode": "observe_only", "expected_action": null, "max_expressed_confidence": 0.82, "must_not_use_unheard_context": true, "must_preserve_alternatives": false, "must_preserve_provenance": true},
+    "scoring": {
+      "metrics": [
+        {"name": "counterfactual_prior_sensitivity", "weight": 0.35, "higher_is_better": false, "hard_gate": true, "threshold": 0.1},
+        {"name": "evidence_override_rate", "weight": 0.35, "higher_is_better": false, "hard_gate": true, "threshold": 0.1},
+        {"name": "current_evidence_fidelity", "weight": 0.3, "higher_is_better": true, "hard_gate": false, "threshold": 0.8}
+      ],
+      "catastrophic_failure_conditions": ["historical_prior_rewritten_as_current_observation"]
+    },
+    "provenance": {"source_dataset": "NVIQ internal synthetic design", "license": null, "created_by": "Noct-Tech", "reviewed_by": [], "notes": "Counterfactual prior injection case."}
+  }
+]

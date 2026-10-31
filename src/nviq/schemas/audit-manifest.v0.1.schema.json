@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noct-tech.example/spec/nviq/audit/v0.1/manifest.schema.json",
+  "title": "NVIQ Commercial Audit Manifest v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["audit_id", "customer_name", "target_name", "target_version", "created_at", "benchmark_version", "case_set", "tracks", "evidence_sources", "retention_policy"],
+  "properties": {
+    "audit_id": {"type": "string", "minLength": 3},
+    "customer_name": {"type": "string", "minLength": 1},
+    "target_name": {"type": "string", "minLength": 1},
+    "target_version": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "benchmark_version": {"const": "0.2"},
+    "case_set": {"type": "string", "minLength": 1},
+    "tracks": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "enum": ["transcript_only", "transcript_metadata", "audio_native", "lsr_cvf", "oracle"]}},
+    "evidence_sources": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["evidence_id", "kind", "ref"], "properties": {"evidence_id": {"type": "string", "minLength": 1}, "kind": {"type": "string", "enum": ["precomputed_observations", "audio", "transcript", "trace", "other"]}, "ref": {"type": "string", "minLength": 1}, "notes": {"type": ["string", "null"]}}}},
+    "retention_policy": {"type": "object", "additionalProperties": false, "required": ["raw_audio", "derived_artifacts_days"], "properties": {"raw_audio": {"type": "string", "enum": ["not_retained", "engagement_only", "customer_managed"]}, "derived_artifacts_days": {"type": "integer", "minimum": 0}}},
+    "baseline_target": {"type": ["object", "null"], "additionalProperties": true},
+    "candidate_target": {"type": ["object", "null"], "additionalProperties": true},
+    "customer_context": {"type": ["object", "null"], "additionalProperties": true},
+    "deployment_environment": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]}
+  }
+}

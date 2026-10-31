@@ -1,0 +1,173 @@
+[
+  {
+    "case_id": "NVIQ-CSC-HESITATION-001",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-HESITATION-001",
+      "events": [
+        {
+          "event_id": "uncertain",
+          "kind": "confidence",
+          "event_time_ms": 500,
+          "evidence_available_time_ms": 400,
+          "confidence_time_ms": 500,
+          "confidence": 0.31,
+          "provenance_refs": [
+            "audio:hesitation"
+          ]
+        },
+        {
+          "event_id": "commit",
+          "kind": "commitment",
+          "event_time_ms": 650,
+          "evidence_available_time_ms": 400,
+          "commitment_time_ms": 650,
+          "parent_event_ids": [
+            "uncertain"
+          ],
+          "provenance_refs": [
+            "trace:commit"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "required_failures": [
+        "premature_commitment"
+      ],
+      "failure_locus": "commitment_routing"
+    }
+  },
+  {
+    "case_id": "NVIQ-CSC-DELAYED-ASYNC-001",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-DELAYED-ASYNC-001",
+      "events": [
+        {
+          "event_id": "request",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 300,
+          "evidence_available_time_ms": 300,
+          "provenance_refs": [
+            "audio:request"
+          ]
+        },
+        {
+          "event_id": "tool",
+          "kind": "tool_action",
+          "event_time_ms": 1400,
+          "evidence_available_time_ms": 1400,
+          "action_authorized_time_ms": 1400,
+          "parent_event_ids": [
+            "request"
+          ],
+          "provenance_refs": [
+            "tool:result"
+          ]
+        },
+        {
+          "event_id": "decision",
+          "kind": "commitment",
+          "event_time_ms": 900,
+          "evidence_available_time_ms": 300,
+          "commitment_time_ms": 900,
+          "parent_event_ids": [
+            "tool"
+          ],
+          "provenance_refs": [
+            "trace:decision"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "required_failures": [
+        "future_knowledge_contamination"
+      ],
+      "failure_locus": "context/prior_contamination"
+    }
+  },
+  {
+    "case_id": "NVIQ-CSC-CLEAN-OVERLAP-001",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-CLEAN-OVERLAP-001",
+      "events": [
+        {
+          "event_id": "speakerA",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 200,
+          "evidence_available_time_ms": 200,
+          "value": {
+            "speaker": "A",
+            "utterance": "send it"
+          },
+          "provenance_refs": [
+            "audio:A"
+          ]
+        },
+        {
+          "event_id": "speakerB",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 230,
+          "evidence_available_time_ms": 230,
+          "value": {
+            "speaker": "B",
+            "utterance": "wait"
+          },
+          "provenance_refs": [
+            "audio:B"
+          ]
+        },
+        {
+          "event_id": "hypothesis",
+          "kind": "hypothesis",
+          "event_time_ms": 400,
+          "evidence_available_time_ms": 230,
+          "confidence": 0.7,
+          "parent_event_ids": [
+            "speakerA",
+            "speakerB"
+          ],
+          "provenance_refs": [
+            "trace:overlap"
+          ]
+        },
+        {
+          "event_id": "confidence",
+          "kind": "confidence",
+          "event_time_ms": 520,
+          "evidence_available_time_ms": 230,
+          "confidence_time_ms": 520,
+          "confidence": 0.93,
+          "parent_event_ids": [
+            "hypothesis"
+          ],
+          "provenance_refs": [
+            "trace:resolved"
+          ]
+        },
+        {
+          "event_id": "commit",
+          "kind": "commitment",
+          "event_time_ms": 700,
+          "evidence_available_time_ms": 230,
+          "commitment_time_ms": 700,
+          "parent_event_ids": [
+            "confidence"
+          ],
+          "provenance_refs": [
+            "trace:commit"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "forbidden_failures": [
+        "future_knowledge_contamination",
+        "premature_commitment"
+      ]
+    }
+  }
+]

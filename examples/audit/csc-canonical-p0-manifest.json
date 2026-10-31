@@ -1,0 +1,26 @@
+{
+  "audit_id": "NVIQ-CSC-CANONICAL-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "NVIQ CSC Canonical Execution Lanes",
+  "target_version": "0.1",
+  "created_at": "2026-09-23T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/csc-canonical-p0.json",
+  "tracks": [
+    "lsr_cvf"
+  ],
+  "evidence_sources": [
+    {
+      "evidence_id": "CSC-CANONICAL-P0-EVIDENCE",
+      "kind": "trace",
+      "ref": "examples/evidence/csc-canonical-p0.json",
+      "notes": "Reference evidence for canonical CSC floor, silence, asynchronous continuity and speaker-state lanes."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "reference",
+  "notes": "Canonical NVIQ/CSC execution-lane qualification manifest."
+}

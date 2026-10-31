@@ -1,0 +1,106 @@
+{
+  "trace_version": "0.1",
+  "default_track": "audio_native",
+  "model": "gemini-3.8-live",
+  "capture_origin": "adapter_contract_fixture",
+  "sessions": [
+    {
+      "case_id": "NVIQ-GEMINI-FLOOR-001",
+      "session_id": "fixture-gemini-floor",
+      "audio_ref": "fixture://gemini-floor-001",
+      "events": [
+        {
+          "type": "gemini.server_content",
+          "event_id": "g-floor-native-1",
+          "at_ms": 1000,
+          "interrupted": true,
+          "turn_complete": true,
+          "turn_complete_reason": "INTERRUPTED",
+          "input_transcription": {
+            "text": "mm-hm"
+          },
+          "output_transcription": {
+            "text": ""
+          }
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "g-floor-1",
+          "class": "genuine_interruption",
+          "yielded_floor": true
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "g-floor-2",
+          "class": "backchannel",
+          "yielded_floor": false
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "g-floor-3",
+          "class": "other_directed_speech",
+          "yielded_floor": false
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "g-floor-4",
+          "class": "background_speech",
+          "yielded_floor": false
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-GEMINI-ASYNC-001",
+      "session_id": "fixture-gemini-async",
+      "audio_ref": "fixture://gemini-async-001",
+      "events": [
+        {
+          "type": "gemini.client_realtime_input",
+          "event_id": "g-input-1",
+          "at_ms": 900,
+          "kind": "audio",
+          "mime_type": "audio/pcm;rate=16000",
+          "byte_length": 640
+        },
+        {
+          "type": "gemini.tool_call",
+          "event_id": "g-tool-1",
+          "at_ms": 1000,
+          "call_id": "work-1",
+          "name": "lookup_schedule",
+          "args": {
+            "day": "Monday"
+          }
+        },
+        {
+          "type": "gemini.tool_response",
+          "event_id": "g-tool-2",
+          "at_ms": 1700,
+          "call_id": "work-1",
+          "work_id": "work-1",
+          "response": {
+            "status": "ok"
+          }
+        },
+        {
+          "type": "nviq.async_task",
+          "event_id": "g-async-1",
+          "kind": "async_task",
+          "authorized_time_ms": 1000,
+          "evidence_times_at_authorization": [
+            200,
+            800,
+            1000
+          ],
+          "later_evidence_retroactively_added": false,
+          "prepared_time_ms": 1600,
+          "returned_time_ms": 1700,
+          "accepted_time_ms": 1750,
+          "rejected_time_ms": null,
+          "committed_time_ms": 1800,
+          "spoken_time_ms": 1900
+        }
+      ]
+    }
+  ]
+}

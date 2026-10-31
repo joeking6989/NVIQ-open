@@ -1,46 +1,98 @@
-# NVIQ Open Source
+# NVIQ — Noct-Tech Voice Intelligence Quotient
 
-**NVIQ — Noct-Tech Voice Intelligence Quotient**
+**Open-source benchmark, execution and assurance tooling for speech-cognition reliability.**
 
-NVIQ is Noct-Tech's research and engineering project for evaluating speech-cognition reliability. It is designed to assess what an AI voice system preserves, understands and uses beyond its transcript, including uncertainty, conversational state, turn taking, evidence provenance and action outcomes.
+NVIQ evaluates how a voice-enabled AI system preserves, interprets, and acts on conversational evidence. Its benchmark families cover confidence and uncertainty, clarification and abstention, state/speech consistency, shared context, turn-taking, tool/action outcomes, and causal evidence integrity.
 
-**Repository status (31 October 2026):** public collaboration foundation in preparation. This repository does not yet contain the executable NVIQ benchmark engine. No runtime benchmark or provider performance claim is made by this repository's current contents.
+**Current source distribution:** `noct-tech-nviq` v0.2.0 (Python 3.11+).
 
-## Project direction
+## Install
 
-The intended open-source distribution will support:
+```bash
+git clone https://github.com/joeking6989/NVIQ-open.git
+cd NVIQ-open
+python -m pip install -e '.[dev]'
+```
 
-- Versioned benchmark cases and machine-readable evidence contracts.
-- Explicit distinction between authentic runtime evidence and adapter-contract fixtures.
-- Deterministic scoring and meaningful failure findings.
-- Provider-neutral evidence ingestion and documented provider adapters.
-- Reproducible local CLI usage, tests and example reports.
-- Community improvements to benchmark coverage, adapter support and engineering quality.
+The default install requires `jsonschema`; provider-specific live integration dependencies are optional (the `live` extra includes `google-genai`). Live provider calls require your own authorised account, credentials and compatible service configuration.
 
-Features will be documented as available only after source, tests and release checks are published.
+## Verify the software
 
-## Getting involved
+```bash
+python -m pytest -q
+nviq validate --cases cases/v0.2/starter.json
+nviq score \
+  --cases cases/v0.2/starter.json \
+  --observations examples/observations/starter-observations.json \
+  --output nviq-starter-report.json
+```
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, and [SECURITY.md](SECURITY.md) for vulnerability reporting. Issues should contain reproducible, sanitised information; never publish provider credentials, customer conversations or personal data.
+The included starter suite is an example input and scorer check, **not a published independent measurement of an AI provider**.
 
-## Roadmap for the first usable release
+## Evaluate supplied evidence
 
-1. Review the existing NVIQ source, its dependencies, configuration and example datasets for public-release suitability.
-2. Select and import the releasable engine, tests, schemas and benchmark cases with attribution.
-3. Document installation, supported Python versions and reproducible CLI commands.
-4. Enable and pass continuous integration checks on the public code.
-5. Publish the first versioned release with an accurate feature list and limitations.
+NVIQ's execution path validates a provider-neutral Evidence Bundle, derives observations, scores them and generates an audit report.
 
-The original NVIQ implementation remains under its existing repository until the code transfer and review are completed.
+```bash
+nviq evidence validate \
+  --evidence examples/evidence/p0-executable.json \
+  --cases cases/v0.2/executable-p0.json
 
-## Open source and commercial services
+nviq execute \
+  --manifest examples/audit/executable-p0-manifest.json \
+  --evidence examples/evidence/p0-executable.json \
+  --output-dir out/execution-p0
+```
 
-The community code and its contributions can be used under [Apache License 2.0](LICENSE). Noct-Tech may separately offer hosted evaluation, managed integrations and independent Assurance audits as commercial services. The licence applies to material published in this repository, not unpublished private services or code.
+The execution output includes derived observations, an evidence summary, JSON and HTML audit reports and a regression snapshot. Runtime captures are distinguished from adapter-contract fixtures through explicit provenance fields.
 
-## Maintainer
+## Architecture
 
-Noct-Tech — https://noct-tech.com.au
+```text
+Provider / target events
+        |
+        v
+Provider adapter / Evidence Bundle
+        |
+        v
+Schema validation + evidence boundaries
+        |
+        v
+Deterministic observation evaluators
+        |
+        v
+NVIQ benchmark scorer and hard-gate findings
+        |
+        v
+JSON / HTML reliability audit and regression comparison
+```
+
+The scorer is the single scoring authority. Adapters preserve evidence and do not generate substitute performance scores. Unsupported or uncaptured facts must not be invented to force a result.
+
+## Integrations and technical documentation
+
+- [Benchmark architecture](docs/NVIQ-v0.2-architecture.md)
+- [Execution engine and target protocol](docs/execution-engine.md)
+- [OpenAI Realtime adapter](docs/openai-realtime-adapter.md)
+- [Gemini Live adapter](docs/gemini-live-adapter.md)
+- [Realtime-Venus audio adapter](docs/realtime-venus-audio-adapter.md)
+- [Causal speech cognition](docs/causal-speech-cognition-v0.1.md)
+- [Source provenance and exclusions](docs/OPEN_SOURCE_PROVENANCE.md)
+
+Provider adapter fixtures are contract tests, not evidence of provider performance. A named-provider benchmarking claim requires authentic captured runtime data, known versions/configuration and a reproducible methodology.
+
+## Contribute
+
+Contributions are welcome for new benchmark cases, correctness fixes, provider adapter compatibility, tests, docs and improvements to reproducibility.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Pull requests should include tests and explain evidence provenance. Do not upload private customer recordings, credentials, confidential prompts or unpublished reports.
+
+## Open source and Noct-Tech services
+
+This repository publishes the local benchmark engine and related tooling. Noct-Tech may separately offer hosted services, managed integrations and independent Assurance audits. Those services are not part of the open-source repository.
 
 ## Licence
 
-Apache License 2.0. See [LICENSE](LICENSE).
+Apache License 2.0 — [LICENSE](LICENSE).
+
+Noct-Tech — https://noct-tech.com.au

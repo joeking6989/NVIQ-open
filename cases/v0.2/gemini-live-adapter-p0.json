@@ -1,0 +1,109 @@
+[
+  {
+    "case_id": "NVIQ-GEMINI-FLOOR-001",
+    "version": "0.2",
+    "family": "conversational_floor_integrity",
+    "title": "Gemini Live full duplex floor classification",
+    "input": {
+      "audio_ref": "fixture://gemini-floor-001",
+      "speaker_count": 2
+    },
+    "ground_truth": {
+      "message_presence_probability": 1,
+      "floor_state": "listener_backchannel"
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "defer"
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "genuine_interruption_response",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "backchannel_non_interruption",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "other_directed_speech_non_interruption",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "background_speech_non_interruption",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "conversational_floor_integrity",
+          "weight": 0.2,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "conversational_floor_integrity_failure"
+      ]
+    }
+  },
+  {
+    "case_id": "NVIQ-GEMINI-ASYNC-001",
+    "version": "0.2",
+    "family": "asynchronous_cognitive_continuity_integrity",
+    "title": "Gemini Live delegated request evidence freeze",
+    "input": {
+      "audio_ref": "fixture://gemini-async-001",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "act",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "request_boundary_evidence_freeze",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "async_future_contamination_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "result_delivery_provenance",
+          "weight": 0.3,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "async_future_knowledge_contamination",
+        "result_delivery_provenance_incomplete"
+      ]
+    }
+  }
+]

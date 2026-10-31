@@ -1,0 +1,24 @@
+{
+  "audit_id": "NVIQ-EXEC-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "NVIQ Execution Engine Reference Target",
+  "target_version": "0.1",
+  "created_at": "2026-09-02T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/executable-p0.json",
+  "tracks": ["lsr_cvf"],
+  "evidence_sources": [
+    {
+      "evidence_id": "EXEC-P0-EVIDENCE",
+      "kind": "trace",
+      "ref": "examples/evidence/p0-executable.json",
+      "notes": "Reference raw evidence used to qualify the execution path."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "reference",
+  "notes": "Execution Engine v0.1 reference manifest."
+}

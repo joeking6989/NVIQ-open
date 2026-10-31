@@ -1,0 +1,233 @@
+[
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-LEDGER-JUSTIFIED-001",
+    "track": "lsr_cvf",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-LEDGER-JUSTIFIED-001",
+      "events": [
+        {
+          "event_id": "heard",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 100,
+          "evidence_available_time_ms": 100,
+          "append_sequence": 0,
+          "provenance_refs": [
+            "audio:justified"
+          ]
+        },
+        {
+          "event_id": "belief",
+          "kind": "confidence",
+          "event_time_ms": 220,
+          "evidence_available_time_ms": 100,
+          "append_sequence": 1,
+          "confidence_time_ms": 220,
+          "confidence": 0.96,
+          "parent_event_ids": [
+            "heard"
+          ],
+          "provenance_refs": [
+            "trace:confidence"
+          ]
+        },
+        {
+          "event_id": "commit",
+          "kind": "commitment",
+          "event_time_ms": 320,
+          "evidence_available_time_ms": 100,
+          "append_sequence": 2,
+          "commitment_time_ms": 320,
+          "parent_event_ids": [
+            "belief"
+          ],
+          "provenance_refs": [
+            "trace:commit"
+          ]
+        },
+        {
+          "event_id": "action",
+          "kind": "tool_action",
+          "event_time_ms": 380,
+          "evidence_available_time_ms": 100,
+          "append_sequence": 3,
+          "action_authorized_time_ms": 380,
+          "parent_event_ids": [
+            "commit"
+          ],
+          "provenance_refs": [
+            "tool:action"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-LEDGER-JUSTIFIED-001"
+      ],
+      "provider": "nviq-fixture",
+      "model": "reference",
+      "configuration": {}
+    }
+  },
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-LEDGER-FUTURE-001",
+    "track": "lsr_cvf",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-LEDGER-FUTURE-001",
+      "events": [
+        {
+          "event_id": "future",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 1200,
+          "evidence_available_time_ms": 1200,
+          "append_sequence": 0,
+          "provenance_refs": [
+            "audio:future"
+          ]
+        },
+        {
+          "event_id": "decision",
+          "kind": "commitment",
+          "event_time_ms": 900,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 1,
+          "commitment_time_ms": 900,
+          "parent_event_ids": [
+            "future"
+          ],
+          "provenance_refs": [
+            "trace:decision"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-LEDGER-FUTURE-001"
+      ],
+      "provider": "nviq-fixture",
+      "model": "reference",
+      "configuration": {}
+    }
+  },
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-LEDGER-PREMATURE-001",
+    "track": "lsr_cvf",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-LEDGER-PREMATURE-001",
+      "events": [
+        {
+          "event_id": "heard",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 300,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 0,
+          "provenance_refs": [
+            "audio:ambiguous"
+          ]
+        },
+        {
+          "event_id": "uncertain",
+          "kind": "confidence",
+          "event_time_ms": 500,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 1,
+          "confidence_time_ms": 500,
+          "confidence": 0.31,
+          "parent_event_ids": [
+            "heard"
+          ],
+          "provenance_refs": [
+            "trace:uncertain"
+          ]
+        },
+        {
+          "event_id": "commit",
+          "kind": "commitment",
+          "event_time_ms": 650,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 2,
+          "commitment_time_ms": 650,
+          "parent_event_ids": [
+            "uncertain"
+          ],
+          "provenance_refs": [
+            "trace:commit"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-LEDGER-PREMATURE-001"
+      ],
+      "provider": "nviq-fixture",
+      "model": "reference",
+      "configuration": {}
+    }
+  },
+  {
+    "evidence_version": "0.1",
+    "case_id": "NVIQ-CSC-LEDGER-AEFR-001",
+    "track": "lsr_cvf",
+    "ledger": {
+      "ledger_version": "0.1",
+      "case_id": "NVIQ-CSC-LEDGER-AEFR-001",
+      "events": [
+        {
+          "event_id": "ghost",
+          "kind": "acoustic_evidence",
+          "event_time_ms": 300,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 0,
+          "fabricated": true,
+          "provenance_refs": [
+            "asr:ghost"
+          ]
+        },
+        {
+          "event_id": "wrong-belief",
+          "kind": "hypothesis",
+          "event_time_ms": 420,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 1,
+          "confidence": 0.94,
+          "parent_event_ids": [
+            "ghost"
+          ],
+          "provenance_refs": [
+            "trace:hypothesis"
+          ]
+        },
+        {
+          "event_id": "commit",
+          "kind": "commitment",
+          "event_time_ms": 600,
+          "evidence_available_time_ms": 300,
+          "append_sequence": 2,
+          "commitment_time_ms": 600,
+          "parent_event_ids": [
+            "wrong-belief"
+          ],
+          "provenance_refs": [
+            "trace:commit"
+          ]
+        }
+      ]
+    },
+    "provenance": {
+      "evidence_refs": [
+        "EV-CSC-LEDGER-AEFR-001"
+      ],
+      "provider": "nviq-fixture",
+      "model": "reference",
+      "configuration": {}
+    }
+  }
+]

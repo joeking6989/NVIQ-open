@@ -1,0 +1,10 @@
+[
+  {"evidence_version":"0.1","case_id":"NVIQ-CONF-001","track":"lsr_cvf","confidence":{"authoritative":0.52,"expressed":0.52,"action_mode":"clarify"},"alternatives":{"preserved":["Axiom","Argus"]},"provenance":{"evidence_refs":["EV-CONF-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-UNC-001","track":"lsr_cvf","message":{"presence_probability":1.0,"lexical_output":"Miller or Millar","abstained":false,"correct":null},"confidence":{"authoritative":0.55,"expressed":0.55,"action_mode":"clarify"},"alternatives":{"preserved":["Miller","Millar"]},"provenance":{"evidence_refs":["EV-UNC-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-ABSTAIN-001","track":"lsr_cvf","message":{"presence_probability":0.02,"lexical_output":null,"abstained":true},"provenance":{"evidence_refs":["EV-ABSTAIN-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-STATE-001","track":"lsr_cvf","action":{"requested":true,"execution_status":"failed","spoken_claim":"failure"},"provenance":{"evidence_refs":["EV-STATE-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-SHARED-001","track":"lsr_cvf","shared_state":{"used_context_ids":["msg-1"],"playback_grounded_ids":["msg-1"],"generated_ids":["msg-1"]},"provenance":{"evidence_refs":["EV-SHARED-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-PRIOR-001","track":"lsr_cvf","prior":{"current_prior_blind":{"neutral":0.9,"angry":0.1},"contextual_resolved":{"neutral":0.88,"angry":0.12},"historical_prior":{"angry":0.95},"promoted_as_current_observation":false},"provenance":{"evidence_refs":["EV-PRIOR-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-TURN-001","track":"lsr_cvf","turn":{"predicted_floor_state":"listener_backchannel"},"provenance":{"evidence_refs":["EV-TURN-001"]}},
+  {"evidence_version":"0.1","case_id":"NVIQ-CTX-001","track":"lsr_cvf","context_retrieval":{"decisive_evidence_required":true,"decisive_evidence_recovered":true,"provenance_preserved":true,"latency_ms":180,"stale_summary_used":false,"requested_ref":"mem-17","recovered_ref":"mem-17","provenance_ref":"prov-17"},"provenance":{"evidence_refs":["EV-CTX-001"]}}
+]

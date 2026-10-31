@@ -1,0 +1,194 @@
+{
+  "trace_version": "0.1",
+  "default_track": "audio_native",
+  "model": "Realtime-Venus-Audio-9B",
+  "source_commit": "e53ae8d5bde92b30364b26f2e4c13c9db7a8ffea",
+  "capture_origin": "adapter_contract_fixture",
+  "sessions": [
+    {
+      "case_id": "NVIQ-VENUS-FLOOR-001",
+      "session_id": "fixture-floor",
+      "audio_ref": "fixture://venus-floor-001",
+      "events": [
+        {
+          "type": "venus.duplex_chunk",
+          "event_id": "v-floor-native-1",
+          "at_ms": 1000,
+          "chunk_index": 1,
+          "is_listen": true,
+          "text": ""
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "v-floor-1",
+          "class": "genuine_interruption",
+          "yielded_floor": true
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "v-floor-2",
+          "class": "backchannel",
+          "yielded_floor": false
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "v-floor-3",
+          "class": "other_directed_speech",
+          "yielded_floor": false
+        },
+        {
+          "type": "nviq.floor",
+          "event_id": "v-floor-4",
+          "class": "background_speech",
+          "yielded_floor": false
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-VENUS-SILENCE-001",
+      "session_id": "fixture-silence",
+      "audio_ref": "fixture://venus-silence-001",
+      "events": [
+        {
+          "type": "nviq.silence",
+          "event_id": "v-silence-1",
+          "silence_ms": 12000,
+          "state_preserved": true,
+          "speaker_preserved": true
+        },
+        {
+          "type": "nviq.silence",
+          "event_id": "v-silence-2",
+          "silence_ms": 18000,
+          "state_preserved": true,
+          "speaker_preserved": true
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-VENUS-ASYNC-001",
+      "session_id": "fixture-async",
+      "audio_ref": "fixture://venus-async-001",
+      "events": [
+        {
+          "type": "venus.harness_event",
+          "event_id": "v-harness-1",
+          "at_ms": 1000,
+          "event_type": "delegate_opened",
+          "work_id": "work-1",
+          "details": {
+            "cutoff_sequence": 8,
+            "cutoff_ms": 1000
+          }
+        },
+        {
+          "type": "venus.harness_event",
+          "event_id": "v-harness-2",
+          "at_ms": 1900,
+          "event_type": "playback_acknowledged",
+          "work_id": "work-1",
+          "details": {}
+        },
+        {
+          "type": "nviq.async_task",
+          "event_id": "v-async-1",
+          "kind": "async_task",
+          "authorized_time_ms": 1000,
+          "evidence_times_at_authorization": [
+            200,
+            800,
+            1000
+          ],
+          "later_evidence_retroactively_added": false,
+          "prepared_time_ms": 1600,
+          "returned_time_ms": 1700,
+          "accepted_time_ms": 1750,
+          "rejected_time_ms": null,
+          "committed_time_ms": 1800,
+          "spoken_time_ms": 1900
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-VENUS-SPEAKER-001",
+      "session_id": "fixture-speaker",
+      "audio_ref": "fixture://venus-speaker-001",
+      "events": [
+        {
+          "type": "nviq.speaker_state",
+          "event_id": "v-speaker-1",
+          "expected_speaker_id": "A",
+          "speaker_id": "A",
+          "overlap_owner_correct": true,
+          "speaker_switch_correct": true
+        },
+        {
+          "type": "nviq.speaker_state",
+          "event_id": "v-speaker-2",
+          "expected_speaker_id": "B",
+          "speaker_id": "B",
+          "overlap_owner_correct": true,
+          "speaker_switch_correct": true
+        }
+      ]
+    },
+    {
+      "case_id": "NVIQ-VENUS-AEFR-001",
+      "session_id": "fixture-aefr",
+      "audio_ref": "fixture://venus-aefr-001",
+      "events": [
+        {
+          "type": "nviq.causal_event",
+          "event_id": "v-causal-1",
+          "event": {
+            "event_id": "ghost",
+            "kind": "acoustic_evidence",
+            "event_time_ms": 300,
+            "append_sequence": 0,
+            "evidence_available_time_ms": 300,
+            "fabricated": true,
+            "provenance_refs": [
+              "venus:audio:ghost"
+            ]
+          }
+        },
+        {
+          "type": "nviq.causal_event",
+          "event_id": "v-causal-2",
+          "event": {
+            "event_id": "belief",
+            "kind": "hypothesis",
+            "event_time_ms": 420,
+            "append_sequence": 1,
+            "evidence_available_time_ms": 300,
+            "confidence": 0.94,
+            "parent_event_ids": [
+              "ghost"
+            ],
+            "provenance_refs": [
+              "venus:trace:belief"
+            ]
+          }
+        },
+        {
+          "type": "nviq.causal_event",
+          "event_id": "v-causal-3",
+          "event": {
+            "event_id": "commit",
+            "kind": "commitment",
+            "event_time_ms": 600,
+            "append_sequence": 2,
+            "evidence_available_time_ms": 300,
+            "commitment_time_ms": 600,
+            "parent_event_ids": [
+              "belief"
+            ],
+            "provenance_refs": [
+              "venus:trace:commit"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

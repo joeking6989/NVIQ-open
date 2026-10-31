@@ -1,0 +1,48 @@
+[
+  {
+    "case_id": "NVIQ-CONF-001",
+    "track": "lsr_cvf",
+    "metrics": {
+      "confidence_inflation_error": 0.02,
+      "clarification_policy_accuracy": 1.0,
+      "alternative_preservation": 1.0
+    },
+    "catastrophic_failures": [],
+    "trace": {
+      "authoritative_entity_confidence": 0.52,
+      "expressed_confidence": 0.52,
+      "action_mode": "clarify"
+    }
+  },
+  {
+    "case_id": "NVIQ-CTX-001",
+    "track": "lsr_cvf",
+    "metrics": {
+      "decisive_evidence_recovery": 1.0,
+      "provenance_preservation": 1.0,
+      "recoverability_latency_ms": 180,
+      "stale_summary_error": 0.0
+    },
+    "catastrophic_failures": [],
+    "trace": {
+      "retrieved_ref": "mem-17",
+      "provenance_ref": "prov-17",
+      "context_operation": "retrieve"
+    }
+  },
+  {
+    "case_id": "NVIQ-PRIOR-001",
+    "track": "lsr_cvf",
+    "metrics": {
+      "counterfactual_prior_sensitivity": 0.04,
+      "evidence_override_rate": 0.02,
+      "current_evidence_fidelity": 0.9
+    },
+    "catastrophic_failures": [],
+    "trace": {
+      "current_observation": {"neutral": 0.82, "angry": 0.05},
+      "injected_prior": {"angry": 0.95},
+      "resolved_state": {"neutral": 0.79, "angry": 0.08}
+    }
+  }
+]

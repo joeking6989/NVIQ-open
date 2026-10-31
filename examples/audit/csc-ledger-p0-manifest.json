@@ -1,0 +1,26 @@
+{
+  "audit_id": "NVIQ-CSC-LEDGER-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "NVIQ Causal Speech Ledger Reference",
+  "target_version": "0.1",
+  "created_at": "2026-09-23T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/csc-ledger-p0.json",
+  "tracks": [
+    "lsr_cvf"
+  ],
+  "evidence_sources": [
+    {
+      "evidence_id": "CSC-LEDGER-P0-EVIDENCE",
+      "kind": "trace",
+      "ref": "examples/evidence/csc-ledger-p0.json",
+      "notes": "Reference causal-speech-ledger evidence covering justified, future-contaminated, premature and fabricated-acoustic paths."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "reference",
+  "notes": "End-to-end Causal Speech Ledger qualification through standard NVIQ evidence validation, execution, scoring and audit."
+}

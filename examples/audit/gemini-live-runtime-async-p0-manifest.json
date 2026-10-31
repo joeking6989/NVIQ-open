@@ -1,0 +1,26 @@
+{
+  "audit_id": "NVIQ-GEMINI-LIVE-RUNTIME-ASYNC-P0-001",
+  "customer_name": "Noct-Tech Internal Qualification",
+  "target_name": "Gemini 3.8 Live Authenticated Runtime",
+  "target_version": "gemini-3.8-live",
+  "created_at": "2026-09-28T00:00:00Z",
+  "benchmark_version": "0.2",
+  "case_set": "cases/v0.2/gemini-live-runtime-async-p0.json",
+  "tracks": [
+    "audio_native"
+  ],
+  "evidence_sources": [
+    {
+      "evidence_id": "GEMINI-LIVE-AUTHENTICATED-RUNTIME",
+      "kind": "trace",
+      "ref": "out/gemini-live-runtime/trace-manifest.json",
+      "notes": "Authenticated Gemini Live provider session. No fixture evidence is accepted for this audit."
+    }
+  ],
+  "retention_policy": {
+    "raw_audio": "not_retained",
+    "derived_artifacts_days": 30
+  },
+  "deployment_environment": "github_actions_authenticated_provider_runtime",
+  "notes": "Qualifies the Gemini Live asynchronous request-boundary and result-delivery lane only. Conversational floor audio qualification remains separately gated."
+}

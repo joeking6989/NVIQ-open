@@ -1,0 +1,49 @@
+[
+  {
+    "case_id": "NVIQ-GEMINI-ASYNC-001",
+    "version": "0.2",
+    "family": "asynchronous_cognitive_continuity_integrity",
+    "title": "Gemini Live authenticated async tool provenance runtime",
+    "input": {
+      "audio_ref": "runtime://gemini-live-async-tool-roundtrip",
+      "speaker_count": 1
+    },
+    "ground_truth": {
+      "message_presence_probability": 1
+    },
+    "context": {},
+    "expected_policy": {
+      "action_mode": "act",
+      "must_preserve_provenance": true
+    },
+    "scoring": {
+      "metrics": [
+        {
+          "name": "request_boundary_evidence_freeze",
+          "weight": 0.4,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        },
+        {
+          "name": "async_future_contamination_rate",
+          "weight": 0.3,
+          "higher_is_better": false,
+          "hard_gate": true,
+          "threshold": 0
+        },
+        {
+          "name": "result_delivery_provenance",
+          "weight": 0.3,
+          "higher_is_better": true,
+          "hard_gate": true,
+          "threshold": 1
+        }
+      ],
+      "catastrophic_failure_conditions": [
+        "async_future_knowledge_contamination",
+        "result_delivery_provenance_incomplete"
+      ]
+    }
+  }
+]

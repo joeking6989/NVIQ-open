@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "noct-tech-nviq"
+version = "0.2.0"
+description = "Noct-Tech NVIQ speech cognition benchmark harness"
+requires-python = ">=3.11"
+dependencies = ["jsonschema>=4.21,<5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+live = ["google-genai>=1,<2"]
+
+[project.scripts]
+nviq = "nviq.cli:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+nviq = ["schemas/*.json", "data/*.json"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
